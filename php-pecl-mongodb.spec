@@ -17,13 +17,12 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name   50-%{pecl_name}.ini
 %endif
-# Still needed because of some private API
-%global buildver %(pkg-config --silence-errors --modversion libmongoc-priv 2>/dev/null || echo 65536)
+%global prever     alpha3
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-Version:        1.1.8
-Release:        4%{?dist}
+Version:        1.2.0
+Release:        0.1.%{prever}%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
@@ -33,14 +32,11 @@ BuildRequires:  php-devel > 5.4
 BuildRequires:  php-pear
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  openssl-devel
-BuildRequires:  pkgconfig(libbson-1.0)    >= 1.3.0
-BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.3.0
-BuildRequires:  pkgconfig(libmongoc-priv) >= 1.3.0
-BuildRequires:  pkgconfig(libmongoc-priv) <  1.4
+BuildRequires:  pkgconfig(libbson-1.0)    >= 1.5
+BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.5
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
-Requires:       mongo-c-driver%{?_isa} >= %{buildver}
 
 # Don't provide php-mongodb which is the pure PHP library
 Provides:       php-pecl(%{pecl_name})         = %{version}
@@ -188,6 +184,9 @@ cd ../ZTS
 
 
 %changelog
+* Fri Oct 14 2016 Remi Collet <remi@fedoraproject.org> - 1.2.0-0.1.alpha3
+- update to 1.2.0alpha3 for libbson and mongo-c-driver 1.5
+
 * Mon Aug 29 2016 Petr Pisar <ppisar@redhat.com> - 1.1.8-4
 - Rebuild against libbson-1.4.0 (bug #1361166)
 
