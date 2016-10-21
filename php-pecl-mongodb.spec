@@ -22,11 +22,13 @@
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
 Version:        1.2.0
-Release:        0.1.%{prever}%{?dist}
+Release:        0.2.%{prever}%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
+
+Patch0:         %{pecl_name}-upstream.patch
 
 BuildRequires:  php-devel > 5.4
 BuildRequires:  php-pear
@@ -59,6 +61,7 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd NTS
+%patch0 -p1 -b .upstream
 
 # Sanity check, really often broken
 extver=$(sed -n '/#define MONGODB_VERSION_S/{s/.* "//;s/".*$//;p}' php_phongo.h)
@@ -184,6 +187,10 @@ cd ../ZTS
 
 
 %changelog
+* Fri Oct 21 2016 Remi Collet <remi@fedoraproject.org> - 1.2.0-0.2.alpha3
+- add upstream patch for libbson and mongo-c-driver 1.5.0RC3
+- fix FTBFS detected by Koschei
+
 * Fri Oct 14 2016 Remi Collet <remi@fedoraproject.org> - 1.2.0-0.1.alpha3
 - update to 1.2.0alpha3 for libbson and mongo-c-driver 1.5
 
