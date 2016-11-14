@@ -22,7 +22,7 @@
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
 Version:        1.2.0
-Release:        0.2.%{prever}%{?dist}
+Release:        0.3.%{prever}%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
@@ -187,6 +187,9 @@ cd ../ZTS
 
 
 %changelog
+* Mon Nov 14 2016 Remi Collet <remi@fedoraproject.org> - 1.2.0-0.3.alpha3
+- rebuild for https://fedoraproject.org/wiki/Changes/php71
+
 * Fri Oct 21 2016 Remi Collet <remi@fedoraproject.org> - 1.2.0-0.2.alpha3
 - add upstream patch for libbson and mongo-c-driver 1.5.0RC3
 - fix FTBFS detected by Koschei
