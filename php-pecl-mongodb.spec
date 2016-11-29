@@ -17,21 +17,19 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name   50-%{pecl_name}.ini
 %endif
-%global prever     alpha3
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
 Version:        1.2.0
-Release:        0.4.%{prever}%{?dist}
+Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 
-Patch0:         %{pecl_name}-upstream.patch
-
 BuildRequires:  php-devel > 5.4
 BuildRequires:  php-pear
+BuildRequires:  php-json
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  openssl-devel
 BuildRequires:  pkgconfig(libbson-1.0)    >= 1.5
@@ -39,6 +37,7 @@ BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.5
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
+Requires:       php-json%{?_isa}
 
 # Don't provide php-mongodb which is the pure PHP library
 Provides:       php-pecl(%{pecl_name})         = %{version}
@@ -61,7 +60,6 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd NTS
-%patch0 -p1 -b .upstream
 
 # Sanity check, really often broken
 extver=$(sed -n '/#define MONGODB_VERSION_S/{s/.* "//;s/".*$//;p}' php_phongo.h)
@@ -157,16 +155,19 @@ fi
 
 
 %check
+OPT="-n"
+[ -f %{php_extdir}/json.so ] && OPT="$OPT -d extension=json.so"
+
 cd NTS
 : Minimal load test for NTS extension
-%{__php} --no-php-ini \
+%{__php} $OPT \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep %{pecl_name}
 
 %if %{with_zts}
 cd ../ZTS
 : Minimal load test for ZTS extension
-%{__ztsphp} --no-php-ini \
+%{__ztsphp} $OPT \
     --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
     --modules | grep %{pecl_name}
 %endif
@@ -187,6 +188,10 @@ cd ../ZTS
 
 
 %changelog
+* Tue Nov 29 2016 Remi Collet <remi@fedoraproject.org> - 1.2.0-1
+- update to 1.2.0
+- internal dependency on date, json, spl and standard
+
 * Wed Nov 23 2016 Remi Collet <remi@fedoraproject.org> - 1.2.0-0.4.alpha3
 - add upstream patch for libbson and mongo-c-driver 1.5.0RC6
 - fix FTBFS detected by Koschei
