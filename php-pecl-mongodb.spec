@@ -11,16 +11,12 @@
 #
 %global with_zts   0%{?__ztsphp:1}
 %global pecl_name  mongodb
-%if "%{php_version}" < "5.6"
-%global ini_name   z-%{pecl_name}.ini
-%else
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name   50-%{pecl_name}.ini
-%endif
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-Version:        1.2.0
+Version:        1.2.1
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -188,6 +184,9 @@ cd ../ZTS
 
 
 %changelog
+* Thu Dec  8 2016 Remi Collet <remi@fedoraproject.org> - 1.2.1-1
+- update to 1.2.1
+
 * Tue Nov 29 2016 Remi Collet <remi@fedoraproject.org> - 1.2.0-1
 - update to 1.2.0
 - internal dependency on date, json, spl and standard
