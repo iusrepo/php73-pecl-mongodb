@@ -16,7 +16,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-Version:        1.2.1
+Version:        1.2.2
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -50,9 +50,9 @@ components necessary to build a fully-functional MongoDB driver.
 %setup -q -c
 mv %{pecl_name}-%{version}%{?prever} NTS
 
-# Don't install/register tests
+# Don't install/register tests and License
 sed -e 's/role="test"/role="src"/' \
-    %{?_licensedir:-e '/LICENSE/s/role="doc"/role="src"/' } \
+    -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
 cd NTS
@@ -130,26 +130,6 @@ do install -Dpm 644 NTS/$i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
-%if 0%{?fedora} < 24
-# when pear installed alone, after us
-%triggerin -- php-pear
-if [ -x %{__pecl} ] ; then
-    %{pecl_install} %{pecl_xmldir}/%{name}.xml >/dev/null || :
-fi
-
-# posttrans as pear can be installed after us
-%posttrans
-if [ -x %{__pecl} ] ; then
-    %{pecl_install} %{pecl_xmldir}/%{name}.xml >/dev/null || :
-fi
-
-%postun
-if [ $1 -eq 0 -a -x %{__pecl} ] ; then
-    %{pecl_uninstall} %{pecl_name} >/dev/null || :
-fi
-%endif
-
-
 %check
 OPT="-n"
 [ -f %{php_extdir}/json.so ] && OPT="$OPT -d extension=json.so"
@@ -184,6 +164,9 @@ cd ../ZTS
 
 
 %changelog
+* Wed Dec 14 2016 Remi Collet <remi@fedoraproject.org> - 1.2.2-1
+- update to 1.2.2
+
 * Thu Dec  8 2016 Remi Collet <remi@fedoraproject.org> - 1.2.1-1
 - update to 1.2.1
 
