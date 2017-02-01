@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-mongodb
 #
-# Copyright (c) 2015-2016 Remi Collet
+# Copyright (c) 2015-2017 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -16,7 +16,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-Version:        1.2.2
+Version:        1.2.5
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -164,6 +164,9 @@ cd ../ZTS
 
 
 %changelog
+* Wed Feb  1 2017 Remi Collet <remi@fedoraproject.org> - 1.2.5-1
+- update to 1.2.5
+
 * Wed Dec 14 2016 Remi Collet <remi@fedoraproject.org> - 1.2.2-1
 - update to 1.2.2
 
