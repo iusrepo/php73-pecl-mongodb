@@ -16,7 +16,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-Version:        1.2.6
+Version:        1.2.7
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -164,6 +164,9 @@ cd ../ZTS
 
 
 %changelog
+* Wed Mar 15 2017 Remi Collet <remi@remirepo.net> - 1.2.7-1
+- Update to 1.2.7
+
 * Wed Mar  8 2017 Remi Collet <remi@remirepo.net> - 1.2.6-1
 - Update to 1.2.6
 
