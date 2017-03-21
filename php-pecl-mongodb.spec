@@ -16,7 +16,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-Version:        1.2.7
+Version:        1.2.8
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -58,7 +58,7 @@ sed -e 's/role="test"/role="src"/' \
 cd NTS
 
 # Sanity check, really often broken
-extver=$(sed -n '/#define MONGODB_VERSION_S/{s/.* "//;s/".*$//;p}' php_phongo.h)
+extver=$(sed -n '/#define PHP_MONGODB_VERSION/{s/.* "//;s/".*$//;p}' php_phongo.h)
 if test "x${extver}" != "x%{version}%{?prever:%{prever}}"; then
    : Error: Upstream extension version is ${extver}, expecting %{version}%{?prever:%{prever}}.
    exit 1
@@ -164,6 +164,9 @@ cd ../ZTS
 
 
 %changelog
+* Mon Mar 20 2017 Remi Collet <remi@remirepo.net> - 1.2.8-1
+- Update to 1.2.8 (no change)
+
 * Wed Mar 15 2017 Remi Collet <remi@remirepo.net> - 1.2.7-1
 - Update to 1.2.7
 
