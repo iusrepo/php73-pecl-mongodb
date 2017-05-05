@@ -16,7 +16,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-Version:        1.2.8
+Version:        1.2.9
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -28,8 +28,8 @@ BuildRequires:  php-pear
 BuildRequires:  php-json
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  openssl-devel
-BuildRequires:  pkgconfig(libbson-1.0)    >= 1.5
-BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.5
+BuildRequires:  pkgconfig(libbson-1.0)    >= 1.6
+BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.6
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -164,6 +164,9 @@ cd ../ZTS
 
 
 %changelog
+* Thu May  4 2017 Remi Collet <remi@remirepo.net> - 1.2.9-1
+- Update to 1.2.9
+
 * Mon Mar 20 2017 Remi Collet <remi@remirepo.net> - 1.2.8-1
 - Update to 1.2.8 (no change)
 
