@@ -17,7 +17,7 @@
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
 Version:        1.2.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
@@ -164,6 +164,9 @@ cd ../ZTS
 
 
 %changelog
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Thu May  4 2017 Remi Collet <remi@remirepo.net> - 1.2.9-1
 - Update to 1.2.9
 
