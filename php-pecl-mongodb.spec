@@ -16,20 +16,24 @@
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-Version:        1.2.9
-Release:        3%{?dist}
+%global upstream_version 1.3.0
+%global upstream_prever  beta1
+Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
+Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
-Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
+Source0:        http://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 
 BuildRequires:  php-devel > 5.4
 BuildRequires:  php-pear
 BuildRequires:  php-json
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  openssl-devel
-BuildRequires:  pkgconfig(libbson-1.0)    >= 1.6
-BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.6
+BuildRequires:  pkgconfig(libbson-1.0)    >= 1.7
+BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.7
+BuildRequires:  snappy-devel
+BuildRequires:  zlib-devel
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -48,7 +52,7 @@ components necessary to build a fully-functional MongoDB driver.
 
 %prep
 %setup -q -c
-mv %{pecl_name}-%{version}%{?prever} NTS
+mv %{pecl_name}-%{upstream_version}%{?upstream_prever} NTS
 
 # Don't install/register tests and License
 sed -e 's/role="test"/role="src"/' \
@@ -59,8 +63,8 @@ cd NTS
 
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_MONGODB_VERSION/{s/.* "//;s/".*$//;p}' php_phongo.h)
-if test "x${extver}" != "x%{version}%{?prever:%{prever}}"; then
-   : Error: Upstream extension version is ${extver}, expecting %{version}%{?prever:%{prever}}.
+if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
+   : Error: Upstream extension version is ${extver}, expecting %{upstream_version}%{?upstream_prever}.
    exit 1
 fi
 cd ..
@@ -164,6 +168,10 @@ cd ../ZTS
 
 
 %changelog
+* Fri Aug 11 2017 Remi Collet <remi@remirepo.net> - 1.3.0~beta1-1
+- update to 1.3.0beta1
+- raise dependency on libbson and mongo-c-driver 1.7.0
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
