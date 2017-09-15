@@ -17,21 +17,21 @@
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
 %global upstream_version 1.3.0
-%global upstream_prever  beta1
-Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
+%global upstream_prever  RC1
+Version:        %{upstream_version}~rc1
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 
-BuildRequires:  php-devel > 5.4
+BuildRequires:  php-devel > 5.5
 BuildRequires:  php-pear
 BuildRequires:  php-json
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  openssl-devel
-BuildRequires:  pkgconfig(libbson-1.0)    >= 1.7
-BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.7
+BuildRequires:  pkgconfig(libbson-1.0)    >= 1.8
+BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.8
 BuildRequires:  snappy-devel
 BuildRequires:  zlib-devel
 
@@ -168,6 +168,11 @@ cd ../ZTS
 
 
 %changelog
+* Fri Sep 15 2017 Remi Collet <remi@remirepo.net> - 1.3.0~RC1-1
+- update to 1.3.0RC1
+- raise dependency on libbson and mongo-c-driver 1.8.0
+- raise dependency on PHP 5.5
+
 * Fri Aug 11 2017 Remi Collet <remi@remirepo.net> - 1.3.0~beta1-1
 - update to 1.3.0beta1
 - raise dependency on libbson and mongo-c-driver 1.7.0
