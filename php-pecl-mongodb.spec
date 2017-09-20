@@ -17,8 +17,8 @@
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
 %global upstream_version 1.3.0
-%global upstream_prever  RC1
-Version:        %{upstream_version}~rc1
+#global upstream_prever  RC1
+Version:        %{upstream_version}
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -168,6 +168,9 @@ cd ../ZTS
 
 
 %changelog
+* Wed Sep 20 2017 Remi Collet <remi@remirepo.net> - 1.3.0-1
+- update to 1.3.0 (stable)
+
 * Fri Sep 15 2017 Remi Collet <remi@remirepo.net> - 1.3.0~RC1-1
 - update to 1.3.0RC1
 - raise dependency on libbson and mongo-c-driver 1.8.0
