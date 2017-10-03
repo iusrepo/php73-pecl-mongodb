@@ -19,7 +19,7 @@ Name:           php-pecl-%{pecl_name}
 %global upstream_version 1.3.0
 #global upstream_prever  RC1
 Version:        %{upstream_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
@@ -168,6 +168,9 @@ cd ../ZTS
 
 
 %changelog
+* Tue Oct 03 2017 Remi Collet <remi@fedoraproject.org> - 1.3.0-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php72
+
 * Wed Sep 20 2017 Remi Collet <remi@remirepo.net> - 1.3.0-1
 - update to 1.3.0 (stable)
 
