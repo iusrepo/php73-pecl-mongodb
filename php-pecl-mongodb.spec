@@ -168,7 +168,7 @@ cd ../ZTS
 
 
 %changelog
-* Sun Dec  4 2017 Remi Collet <remi@remirepo.net> - 1.3.4-1
+* Sun Dec  3 2017 Remi Collet <remi@remirepo.net> - 1.3.4-1
 - Update to 1.3.4
 
 * Wed Nov 22 2017 Remi Collet <remi@remirepo.net> - 1.3.3-1
