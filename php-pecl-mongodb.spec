@@ -16,7 +16,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-%global upstream_version 1.3.3
+%global upstream_version 1.3.4
 #global upstream_prever  RC1
 Version:        %{upstream_version}
 Release:        1%{?dist}
@@ -168,6 +168,9 @@ cd ../ZTS
 
 
 %changelog
+* Sun Dec  4 2017 Remi Collet <remi@remirepo.net> - 1.3.4-1
+- Update to 1.3.4
+
 * Wed Nov 22 2017 Remi Collet <remi@remirepo.net> - 1.3.3-1
 - Update to 1.3.3
 
