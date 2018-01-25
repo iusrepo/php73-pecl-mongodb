@@ -9,6 +9,10 @@
 #
 # Please, preserve the changelog entries
 #
+
+# we don't want -z defs linker flag
+%undefine _strict_symbol_defs_build
+
 %global with_zts   0%{?__ztsphp:1}
 %global pecl_name  mongodb
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
@@ -17,8 +21,8 @@
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
 %global upstream_version 1.4.0
-%global upstream_prever  beta1
-%global upstream_lower   ~beta1
+%global upstream_prever  RC1
+%global upstream_lower   ~rc1
 Version:        %{upstream_version}%{?upstream_lower}
 Release:        1%{?dist}
 License:        ASL 2.0
@@ -98,6 +102,7 @@ peclbuild() {
     --with-php-config=%{_bindir}/${1}-config \
     --with-libbson \
     --with-libmongoc \
+    --with-mongodb-sasl \
     --enable-mongodb
 
   make %{?_smp_mflags}
@@ -169,6 +174,9 @@ cd ../ZTS
 
 
 %changelog
+* Fri Dec 22 2017 Remi Collet <remi@remirepo.net> - 1.4.0~rc1-1
+- Update to 1.4.0RC1
+
 * Fri Dec 22 2017 Remi Collet <remi@remirepo.net> - 1.4.0~beta1-1
 - Update to 1.4.0beta1
 - raise dependency on libbson and libmongoc 1.9.0
