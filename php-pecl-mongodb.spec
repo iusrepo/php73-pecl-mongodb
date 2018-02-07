@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-mongodb
 #
-# Copyright (c) 2015-2017 Remi Collet
+# Copyright (c) 2015-2018 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -21,8 +21,8 @@
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
 %global upstream_version 1.4.0
-%global upstream_prever  RC1
-%global upstream_lower   ~rc1
+%global upstream_prever  RC2
+%global upstream_lower   ~rc2
 Version:        %{upstream_version}%{?upstream_lower}
 Release:        1%{?dist}
 License:        ASL 2.0
@@ -174,6 +174,9 @@ cd ../ZTS
 
 
 %changelog
+* Wed Feb  7 2018 Remi Collet <remi@remirepo.net> - 1.4.0~rc2-1
+- Update to 1.4.0RC2
+
 * Fri Dec 22 2017 Remi Collet <remi@remirepo.net> - 1.4.0~rc1-1
 - Update to 1.4.0RC1
 
