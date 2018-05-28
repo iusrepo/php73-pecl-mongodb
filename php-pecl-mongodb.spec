@@ -174,7 +174,7 @@ cd ../ZTS
 
 
 %changelog
-* Thu May 28 2018 Remi Collet <remi@remirepo.net> - 1.4.3-2
+* Mon May 28 2018 Remi Collet <remi@remirepo.net> - 1.4.3-2
 - rebuild with libbson and libmongc 1.10.0
 
 * Thu Apr 19 2018 Remi Collet <remi@remirepo.net> - 1.4.3-1
