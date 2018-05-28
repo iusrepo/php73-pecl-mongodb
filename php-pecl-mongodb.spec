@@ -24,7 +24,7 @@ Name:           php-pecl-%{pecl_name}
 #global upstream_prever  RC2
 #global upstream_lower   ~rc2
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        ASL 2.0
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -174,6 +174,9 @@ cd ../ZTS
 
 
 %changelog
+* Thu May 28 2018 Remi Collet <remi@remirepo.net> - 1.4.3-2
+- rebuild with libbson and libmongc 1.10.0
+
 * Thu Apr 19 2018 Remi Collet <remi@remirepo.net> - 1.4.3-1
 - update to 1.4.3
 
