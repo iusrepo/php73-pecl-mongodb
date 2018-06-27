@@ -20,11 +20,11 @@
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-%global upstream_version 1.4.4
+%global upstream_version 1.5.0
 #global upstream_prever  RC2
 #global upstream_lower   ~rc2
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        ASL 2.0
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -33,12 +33,8 @@ BuildRequires:  gcc
 BuildRequires:  php-devel > 5.5
 BuildRequires:  php-pear
 BuildRequires:  php-json
-BuildRequires:  cyrus-sasl-devel
-BuildRequires:  openssl-devel
-BuildRequires:  pkgconfig(libbson-1.0)    >= 1.9
-BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.9
-BuildRequires:  snappy-devel
-BuildRequires:  zlib-devel
+BuildRequires:  pkgconfig(libbson-1.0)    >= 1.11
+BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.11
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -67,7 +63,7 @@ sed -e 's/role="test"/role="src"/' \
 cd NTS
 
 # Sanity check, really often broken
-extver=$(sed -n '/#define PHP_MONGODB_VERSION/{s/.* "//;s/".*$//;p}' php_phongo.h)
+extver=$(sed -n '/#define PHP_MONGODB_VERSION /{s/.* "//;s/".*$//;p}' phongo_version.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
    : Error: Upstream extension version is ${extver}, expecting %{upstream_version}%{?upstream_prever}.
    exit 1
@@ -95,14 +91,12 @@ peclbuild() {
 
   # Ensure we use system library
   # Need to be removed only after phpize because of m4_include
-  rm -r src/libbson
   rm -r src/libmongoc
 
   %configure \
     --with-php-config=%{_bindir}/${1}-config \
     --with-libbson \
     --with-libmongoc \
-    --with-mongodb-sasl \
     --enable-mongodb
 
   make %{?_smp_mflags}
@@ -174,6 +168,10 @@ cd ../ZTS
 
 
 %changelog
+* Wed Jun 27 2018 Remi Collet <remi@remirepo.net> - 1.5.0-1
+- update to 1.5.0
+- raise dependency on libbson and libmongoc 1.11.0
+
 * Fri Jun  8 2018 Remi Collet <remi@remirepo.net> - 1.4.4-2
 - rebuild with libbson and libmongc 1.10.2 (soname back to 0)
 
