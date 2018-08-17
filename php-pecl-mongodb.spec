@@ -20,11 +20,11 @@
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-%global upstream_version 1.5.1
+%global upstream_version 1.5.2
 #global upstream_prever  RC2
 #global upstream_lower   ~rc2
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        ASL 2.0
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -33,8 +33,8 @@ BuildRequires:  gcc
 BuildRequires:  php-devel > 5.5
 BuildRequires:  php-pear
 BuildRequires:  php-json
-BuildRequires:  pkgconfig(libbson-1.0)    >= 1.11
-BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.11
+BuildRequires:  pkgconfig(libbson-1.0)    >= 1.12
+BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.12
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -168,6 +168,10 @@ cd ../ZTS
 
 
 %changelog
+* Fri Aug 17 2018 Remi Collet <remi@remirepo.net> - 1.5.2-1
+- update to 1.5.2
+- raise dependency on libbson and libmongoc 1.12.0
+
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
