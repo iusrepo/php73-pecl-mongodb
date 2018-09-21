@@ -20,7 +20,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-%global upstream_version 1.5.2
+%global upstream_version 1.5.3
 #global upstream_prever  RC2
 #global upstream_lower   ~rc2
 Version:        %{upstream_version}%{?upstream_lower}
@@ -33,8 +33,8 @@ BuildRequires:  gcc
 BuildRequires:  php-devel > 5.5
 BuildRequires:  php-pear
 BuildRequires:  php-json
-BuildRequires:  pkgconfig(libbson-1.0)    >= 1.12
-BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.12
+BuildRequires:  pkgconfig(libbson-1.0)    >= 1.13
+BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.13
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -168,6 +168,10 @@ cd ../ZTS
 
 
 %changelog
+* Fri Sep 21 2018 Remi Collet <remi@remirepo.net> - 1.5.3-1
+- update to 1.5.3
+- raise dependency on libbson and libmongoc 1.13.0
+
 * Fri Aug 17 2018 Remi Collet <remi@remirepo.net> - 1.5.2-1
 - update to 1.5.2
 - raise dependency on libbson and libmongoc 1.12.0
