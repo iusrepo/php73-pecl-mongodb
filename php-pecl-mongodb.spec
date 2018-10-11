@@ -24,7 +24,7 @@ Name:           php-pecl-%{pecl_name}
 #global upstream_prever  RC2
 #global upstream_lower   ~rc2
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        ASL 2.0
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -168,6 +168,9 @@ cd ../ZTS
 
 
 %changelog
+* Thu Oct 11 2018 Remi Collet <remi@remirepo.net> - 1.5.3-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/php73
+
 * Fri Sep 21 2018 Remi Collet <remi@remirepo.net> - 1.5.3-1
 - update to 1.5.3
 - raise dependency on libbson and libmongoc 1.13.0
