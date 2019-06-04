@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-mongodb
 #
-# Copyright (c) 2015-2018 Remi Collet
+# Copyright (c) 2015-2019 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -24,7 +24,7 @@ Name:           php-pecl-%{pecl_name}
 #global upstream_prever  RC2
 #global upstream_lower   ~rc2
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        3%{?dist}
+Release:        1%{?dist}
 License:        ASL 2.0
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -168,6 +168,9 @@ cd ../ZTS
 
 
 %changelog
+* Tue Jun  4 2019 Remi Collet <remi@remirepo.net> - 1.5.4-1
+- update to 1.5.4
+
 * Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
