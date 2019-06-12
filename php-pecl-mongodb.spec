@@ -18,6 +18,8 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name   50-%{pecl_name}.ini
 
+%bcond_without libmongoc
+
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
 %global upstream_version 1.5.5
@@ -33,8 +35,10 @@ BuildRequires:  gcc
 BuildRequires:  php-devel > 5.5
 BuildRequires:  php-pear
 BuildRequires:  php-json
+%if %{with libmongoc}
 BuildRequires:  pkgconfig(libbson-1.0)    >= 1.13
 BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.13
+%endif
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -91,12 +95,16 @@ peclbuild() {
 
   # Ensure we use system library
   # Need to be removed only after phpize because of m4_include
+  %if %{with libmongoc}
   rm -r src/libmongoc
+  %endif
 
   %configure \
     --with-php-config=%{_bindir}/${1}-config \
+    %if %{with libmongoc}
     --with-libbson \
     --with-libmongoc \
+    %endif
     --enable-mongodb
 
   make %{?_smp_mflags}
