@@ -1,3 +1,5 @@
+# IUS spec file for php73-pecl-mongodb, forked from:
+#
 # Fedora spec file for php-pecl-mongodb
 # without SCL compatibility, from
 #
@@ -13,28 +15,27 @@
 # we don't want -z defs linker flag
 %undefine _strict_symbol_defs_build
 
+%global php        php73
 %global with_zts   0%{?__ztsphp:1}
 %global pecl_name  mongodb
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name   50-%{pecl_name}.ini
 
-%bcond_without libmongoc
+%bcond_with libmongoc
 
 Summary:        MongoDB driver for PHP
-Name:           php-pecl-%{pecl_name}
-%global upstream_version 1.5.5
-#global upstream_prever  RC2
-#global upstream_lower   ~rc2
-Version:        %{upstream_version}%{?upstream_lower}
-Release:        1%{?dist}
+Name:           %{php}-pecl-%{pecl_name}
+Version:        1.5.5
+Release:        2%{?dist}
 License:        ASL 2.0
-URL:            http://pecl.php.net/package/%{pecl_name}
-Source0:        http://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
+URL:            https://pecl.php.net/package/%{pecl_name}
+Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
 BuildRequires:  gcc
-BuildRequires:  php-devel > 5.5
-BuildRequires:  php-pear
-BuildRequires:  php-json
+BuildRequires:  %{php}-devel
+# build require pear1's dependencies to avoid mismatched php stacks
+BuildRequires:  pear1 %{php}-cli %{php}-common %{php}-xml
+BuildRequires:  %{php}-json
 %if %{with libmongoc}
 BuildRequires:  pkgconfig(libbson-1.0)    >= 1.13
 BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.13
@@ -42,11 +43,16 @@ BuildRequires:  pkgconfig(libmongoc-1.0)  >= 1.13
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
-Requires:       php-json%{?_isa}
+Requires:       %{php}-json%{?_isa}
 
 # Don't provide php-mongodb which is the pure PHP library
 Provides:       php-pecl(%{pecl_name})         = %{version}
 Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
+
+# safe replacement
+Provides:       php-pecl-%{pecl_name} = %{version}-%{release}
+Provides:       php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
+Conflicts:      php-pecl-%{pecl_name} < %{version}-%{release}
 
 
 %description
@@ -57,7 +63,7 @@ components necessary to build a fully-functional MongoDB driver.
 
 %prep
 %setup -q -c
-mv %{pecl_name}-%{upstream_version}%{?upstream_prever} NTS
+mv %{pecl_name}-%{version} NTS
 
 # Don't install/register tests and License
 sed -e 's/role="test"/role="src"/' \
@@ -68,8 +74,8 @@ cd NTS
 
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_MONGODB_VERSION /{s/.* "//;s/".*$//;p}' phongo_version.h)
-if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
-   : Error: Upstream extension version is ${extver}, expecting %{upstream_version}%{?upstream_prever}.
+if test "x${extver}" != "x%{version}"; then
+   : Error: Upstream extension version is ${extver}, expecting %{version}.
    exit 1
 fi
 cd ..
@@ -127,7 +133,7 @@ make -C NTS \
 install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 # Install XML package description
-install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
+install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{pecl_name}.xml
 
 %if %{with_zts}
 make -C ZTS \
@@ -161,10 +167,28 @@ cd ../ZTS
 %endif
 
 
+%triggerin -- pear1
+if [ -x %{__pecl} ]; then
+    %{pecl_install} %{pecl_xmldir}/%{pecl_name}.xml >/dev/null || :
+fi
+
+
+%posttrans
+if [ -x %{__pecl} ]; then
+    %{pecl_install} %{pecl_xmldir}/%{pecl_name}.xml >/dev/null || :
+fi
+
+
+%postun
+if [ $1 -eq 0 -a -x %{__pecl} ]; then
+    %{pecl_uninstall} %{pecl_name} >/dev/null || :
+fi
+
+
 %files
 %license NTS/LICENSE
 %doc %{pecl_docdir}/%{pecl_name}
-%{pecl_xmldir}/%{name}.xml
+%{pecl_xmldir}/%{pecl_name}.xml
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
@@ -176,6 +200,9 @@ cd ../ZTS
 
 
 %changelog
+* Wed Jun 12 2019 Carl George <carl@george.computer> - 1.5.5-2
+- Port from Fedora to IUS
+
 * Tue Jun 11 2019 Remi Collet <remi@remirepo.net> - 1.5.5-1
 - update to 1.5.5
 
