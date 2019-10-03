@@ -25,8 +25,8 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{php}-pecl-%{pecl_name}
-Version:        1.5.5
-Release:        2%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 License:        ASL 2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -200,6 +200,9 @@ fi
 
 
 %changelog
+* Thu Oct 03 2019 Luis M. Segundo <blackfile@fedoraproject.org> - 1.6.0-1
+- update to 1.6.0
+
 * Wed Jun 12 2019 Carl George <carl@george.computer> - 1.5.5-2
 - Port from Fedora to IUS
 
